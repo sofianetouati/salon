@@ -1,0 +1,4 @@
+0000000000000000000000000000000000000000 147e22dd07dbbe18500de122c216e0880e36b375 Sofiane Touati <sofiane.touati@me.com> 1621865231 +0200	commit (initial): Add initial set of files
+147e22dd07dbbe18500de122c216e0880e36b375 147e22dd07dbbe18500de122c216e0880e36b375 Sofiane Touati <sofiane.touati@me.com> 1622129868 +0200	Branch: renamed refs/heads/master to refs/heads/main
+147e22dd07dbbe18500de122c216e0880e36b375 8bb56cff8330aad649563a66e12931a3e87a33a0 Sofiane Touati <sofiane.touati@me.com> 1622130351 +0200	commit: Mise en place du template html dans symfony
+8bb56cff8330aad649563a66e12931a3e87a33a0 ab73d5887747f5cffeec8eacf2a2d38412aed1d7 Sofiane Touati <sofiane.touati@me.com> 1622560602 +0200	commit: Mise en place de l'envoi de mail via formulaire.

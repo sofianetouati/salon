@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap");
+
+@import "./_scss/main.scss";
+@import "./css/themes/xmodern.css";
+
+@import "./js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css";
+
+@import "./js/plugins/datatables-bs5/css/dataTables.bootstrap5.min";
+@import "./js/plugins/datatables-buttons-bs5/css/buttons.bootstrap5.min";
+
+@import "./js/plugins/flatpickr/flatpickr";
+@import "./js/plugins/sweetalert2/sweetalert2.css";
+
+@import "~@fullcalendar/common/main.css";
+@import "~@fullcalendar/daygrid/main.css";
+@import "~@fullcalendar/timegrid/main.css";
+@import "~@fullcalendar/list/main.css";

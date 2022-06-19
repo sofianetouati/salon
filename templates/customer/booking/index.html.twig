@@ -1,0 +1,83 @@
+{% extends "customer/base.html.twig" %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+
+{% block body %}
+<div id="page-container" class="page-header-dark main-content-boxed">
+    {% include "customer/partials/header.html.twig" %}
+    {# {% include "admin/partials/options.html.twig" %} #}
+
+
+      <!-- Main Container -->
+      <main id="main-container">
+        <!-- My Bookings -->
+        <div class="bg-body-dark">
+          <div class="content content-full">
+            <div class="text-center py-3">
+              <h1 class="h3 fw-bold mb-2">Mes RDV</h1>
+              <h3 class="h5 fw-normal text-muted">Liste de tous vos rendez-vous</h3>
+            </div>
+            {% for booking in bookings %}
+
+            <a href="{{ path('customer_booking_show', {id : booking.id}) }}">
+              <div class="block block-rounded block-transparent bg-image" style="background-image: url('{{ asset('build/images/photos/photo6.jpg') }}');">
+                {% if booking.isCancel is same as TRUE %}
+                <div class="block-content block-content-full bg-black-75 ribbon ribbon-bottom ribbon-bookmark ribbon-danger">
+                  {% for role in booking.cancellerRoles %}  
+                    {% if role is same as "ROLE_ADMIN" or role is same as "ROLE_MANAGER" %}
+                      <div class="ribbon-box">Le salon à annulé ce RDV le {{booking.cancelledAt | format_datetime(pattern="dd MMMM YYYY", locale='fr')| title}}</div>
+                    {% elseif role is same as "ROLE_CLIENT" %}
+                      <div class="ribbon-box">Vous avez annulé ce RDV le {{booking.cancelledAt | format_datetime(pattern="dd MMMM YYYY", locale='fr')| title}}</div>
+                    {% endif %}
+                  {% endfor %}
+                
+                {% elseif booking.status is same as 'warning' %}
+                <div class="block-content block-content-full bg-black-75 ribbon ribbon-bottom ribbon-bookmark ribbon-success">
+                <div class="ribbon-box">Rendez-vous terminé</div>
+                {% else %}
+                <div class="block-content block-content-full bg-black-75">
+                {% endif %}
+                
+                  <div class="d-md-flex justify-content-md-between align-items-md-center">
+                    <div class="p-3 p-md-4">
+                      <h3 class="h4 fw-bold text-white mb-1"><i class="fas fa-location-arrow"></i> {{booking.Salon}}</h3>
+                      <p class="text-white-75 fw-semibold mb-0">
+                        {{booking.beginAt | format_datetime(pattern="EEEE dd MMMM YYYY à H'h'mm", locale='fr')| capitalize}}
+                      </p>
+                      <p class="text-white-75 fw-semibold mb-0">
+                        Prestation : {{booking.product | title}} {% if booking.product.detail %}({{ booking.product.detail | lower }}){% endif %}
+                      </p>
+                    </div>
+                    
+                    {% if booking.status is same as 'success' %}
+                      <div class="p-3 p-md-4">
+                        {# <a class="btn btn-sm btn-alt-primary px-3 me-1 my-1" href="{{ path('customer_booking_show', {id: booking.id}) }}">
+                          Voir
+                        </a> #}
+                        <a class="btn btn-sm btn-alt-warning px-3 me-1 my-1" href="{{ path('customer_booking_edit', {id: booking.id}) }}">
+                          <i class="fa fa-edit"> Modifier</i>
+                        </a>
+                        <a class="btn btn-sm btn-alt-danger px-3 me-1 my-1" href="{{ path('customer_booking_cancel', {id: booking.id}) }}">
+                          <i class="fa fa-times"> Annuler</i>
+                        </a>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% else %}
+            <div class="row">
+              <p class="text-center">Aucun rendez-vous n'est prévu? <a href="{{ path('customer_booking_salon') }}">Je réserve !</a></p>
+            </div>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+        <!-- END My Bookings -->
+      </main>
+      <!-- END Main Container -->
+{% include "customer/partials/footer.html.twig" %}
+</div>
+{% endblock %}
+      

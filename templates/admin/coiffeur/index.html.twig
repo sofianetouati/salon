@@ -1,0 +1,75 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Les coiffeurs{% endblock %}
+
+{% block body %}
+<div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed main-content-narrow page-header-dark">
+    {% include "admin/partials/sidebar.html.twig" %}
+    {% include "admin/partials/header.html.twig" %}
+    {# {% include "admin/partials/options.html.twig" %}  #}
+
+      <!-- Main Container -->
+      <main id="main-container">
+
+        <!-- Hero -->
+        <div class="bg-image" style="background-image: url('{{ asset('build/images/photos/photo13@2x.jpg') }}');">
+          <div class="bg-black-50">
+            <div class="content content-full">
+              <div class="d-flex justify-content-between align-items-center">
+                <h1 class="flex-grow-1 fs-2 text-white my-2">
+                  <i class="fa fa-cut text-white-50 me-1"></i> Les Coiffeurs
+                </h1>
+                {% if is_granted("ROLE_ADMIN") %}
+                <a class="btn btn-primary my-2 text-light" href="{{ path('admin_coiffeur_new') }}">
+                  <i class="fa fa-fw fa-plus"></i>
+                  <span class="d-none d-sm-inline ms-1">Ajouter</span>
+                </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END Hero -->
+
+        <!-- Page Content -->
+        <div class="content">
+          {# <form action="be_pages_projects_dashboard.html" method="POST" onsubmit="return false;">
+            <div class="row items-push">
+              <div class="col-sm-6 col-xl-3">
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fa fa-search"></i>
+                  </span>
+                  <input type="text" class="form-control border-start-0" id="dm-projects-search" name="dm-projects-search" placeholder="Trouver un salon..">
+                </div>
+              </div>
+              
+            </div>
+          </form> #}
+          <div class="row items-push">
+            {% for coiffeur in coiffeurs %}
+                <div class="col-md-6 col-xl-3">
+              <a class="block block-rounded block-link-pop" href="{{ path('admin_coiffeur_show', {id:coiffeur.id}) }}">
+                <div class="block-content block-content-full d-flex align-items-center justify-content-between">
+                  <img class="img-avatar img-avatar48" src="{{asset('build/images/avatars/avatar16.jpg') }}" alt="">
+                  <div class="ms-3 text-end">
+                    <p class="fw-semibold mb-0">{{coiffeur.firstname | title}} {{coiffeur.lastname | title}}</p>
+                    <p class="fs-sm fw-medium text-muted mb-0">
+                      Coiffeur
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+            {% else %}
+            <p>Commencez par ajouter un coiffeur</p>
+            {% endfor %}
+          </div>
+        </div>
+        <!-- END Page Content -->
+      </main>
+      <!-- END Main Container -->
+    {% include "admin/partials/footer.html.twig" %}
+    </div>
+    <!-- END Page Container -->
+{% endblock %}

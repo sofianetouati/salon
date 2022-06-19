@@ -1,0 +1,202 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}Calendrier{% endblock %}
+
+{% block body %}
+
+<div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed main-content-narrow page-header-dark">
+    {% include "admin/partials/sidebar.html.twig" %}
+    {% include "admin/partials/header.html.twig" %}
+    {# {% include "admin/partials/options.html.twig" %} #}
+
+
+      <!-- Main Container -->
+      <main id="main-container">
+
+      <!-- Hero -->
+        <div class="bg-image" style="background-image: url('{{ asset('build/images/photos/photo13@2x.jpg') }}');">
+          <div class="bg-black-50">
+            <div class="content content-full">
+              <div class="d-flex justify-content-between align-items-center">
+                <h1 class="flex-grow-1 fs-2 text-white my-2">
+                  <i class="fa fa-calendar-alt text-white-50 me-1"></i> Les Rendez-Vous
+                </h1>
+                <div>
+                  <a class="btn btn-primary my-2 text-light" href="{{ path('admin_booking_all') }}">
+                    <i class="fa fa-fw fa-list"></i>
+                    <span class="d-none d-sm-inline ms-1">Liste</span>
+                  </a>
+                  <a class="btn btn-primary my-2 text-light" href="{{ path('admin_booking_salon') }}">
+                    <i class="fa fa-fw fa-plus"></i>
+                    <span class="d-none d-sm-inline ms-1">Ajouter</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END Hero -->
+
+        <!-- Page Content -->
+        <!-- Full Calendar (functionality is initialized in js/pages/be_comp_calendar.min.js which was auto compiled from _js/pages/be_comp_calendar.js ) -->
+        <!-- For more info and examples you can check out https://fullcalendar.io/ -->
+        <div class="row g-0 flex-xl-grow-1">
+          <div class="col-2">
+            <div class="content ">
+              <!-- Side Content -->
+              <div id="side-content" class="push">
+              {# <!-- Add Event Form -->
+                <form class="js-form-add-event push">
+                  <div class="input-group">
+                    <input type="text" class="js-add-event form-control border-0" placeholder="Add Event..">
+                    <span class="input-group-text bg-body-extra-light border-0">
+                      <i class="fa fa-fw fa-plus-circle"></i>
+                    </span>
+                  </div>
+                </form>
+                <!-- END Add Event Form --> #}
+                <div class="h3">Coiffeurs</div>
+                <!-- Event List -->
+                <ul class="list list-events">
+                {% for coiffeur in coiffeurs %}
+                  <li>
+                    <div class="p-2 fs-sm fw-medium rounded text-light" style="background-color:{{coiffeur.color}};">
+                      {{ coiffeur.firstname | title }} {{ coiffeur.lastname | title }}
+                      <small>({{coiffeur.salon | title }})</small>
+                    </div>
+                  </li>
+                {% endfor %}
+                </ul>
+                <div class="text-center">
+                  <em class="fs-sm text-muted">
+                    <i class="fa fa-info me-1"></i> Légende des coiffeurs
+                  </em>
+                </div>
+                <!-- END Event List -->
+              </div>
+              <!-- END Side Content -->
+            </div>
+          </div>
+          <div class="col bg-body-dark">
+            <div class="content w-100 p-0">
+              {# <!-- Toggle Side Content -->
+              <div class="d-xl-none push">
+                <!-- Class Toggle, functionality initialized in Helpers.dmToggleClass() -->
+                <button type="button" class="btn w-100 btn-alt-primary" data-toggle="class-toggle" data-target="#side-content" data-class="d-none">
+                  Calendar Options
+                </button>
+              </div>
+              <!-- END Toggle Side Content --> #}
+              
+              <div class="block block-rounded m-0">
+                <div class="block-header block-header-default">
+                  <h3 class="block-title text-center">Calendrier <small>des réservations</small></h3>
+                  <div class="block-options">
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="fullscreen_toggle"><i class="si si-size-fullscreen"></i></button>
+                  </div>
+                </div>
+                    <div id="modal" class="modal" tabindex="-1">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Réservation par téléphone</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          {{ form_start(form) }}
+                          <div class="modal-body">
+                            <div id="salon" class="text-center mb-3">
+                            {% if salon is iterable %}  
+                              {% for s in salon %}
+                                <input type="button" class="js-salon btn btn-outline-info text-center" value="{{ s.name }}" data-salon="{{ s.id }}">
+                              {% endfor %}
+                            {% else %}
+                            <input type="button" class="js-salon btn btn-outline-info text-center" value="{{ salon.name }}" data-salon="{{ salon.id }}">
+                            {% endif %}
+                            </div>
+                              <div id="#formPhone" class="block-content">
+                                <h2 class="content-heading pt-0">Informations principales</h2>
+                                <p>Rendez-vous le <strong class="rdv"></strong></p>
+                                <!-- Coiffeur Info -->
+                                <div class="row push">
+                                  
+                                  <div class="col text-center">
+                                    <div class="mb-4">
+                                      {{form_widget(form.coiffeur)}}
+                                      {{form_errors(form.coiffeur)}}
+                                    </div>
+                                    <div class="mb-4 js-begin" hidden>
+                                      {{form_widget(form.beginAt)}}
+                                      {{form_errors(form.beginAt)}}
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- END Customer Info -->
+                                <!-- Customer Info -->
+                                <div class="row push">
+                                  
+                                  <div class="col text-center">
+                                    <div class="mb-4">
+                                      {{form_widget(form.bookerFullname)}}
+                                      {{form_errors(form.bookerFullname)}}
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- END Customer Info -->
+                                <!-- Product Info -->
+                                <div class="row push">
+                                  
+                                  <div class="col text-center">
+                                    <div class="mb-4">
+                                      {{form_widget(form.productName)}}
+                                      {{form_errors(form.productName)}}
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- END Product Info -->
+                                <!-- Description Info -->
+                                <div class="row push">
+                                  
+                                  <div class="col text-center">
+                                    <div class="mb-4">
+                                      {{form_widget(form.description)}}
+                                      {{form_errors(form.description)}}
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- END Description Info -->
+                              <!-- Submit -->
+                              <div class="col text-center" id="submit">
+                                <div class="mb-4">
+                                  <button id="btn_submit" type="button" class="btn btn-primary text-light">Valider</button>
+                                  <button id="btn_cancel" type="button" class="btn btn-light rounded m-1" data-bs-dismiss="modal">Annuler</button>
+                                </div>
+                                {{ form_end(form) }}
+                              </div>
+                              <!-- END Submit -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <div class="block-content block-content-full">
+                  <!-- Calendar Container -->
+                  <div id="calendar-holder" data-events-url="{{ path('fc_load_events') }}" class="p-xl-4"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <!-- END Page Content -->
+      </main>
+      <!-- END Main Container -->
+{% include "admin/partials/footer.html.twig" %}
+</div>
+{% endblock %}
+{% block javascript %}
+  {{ parent() }}
+  {{ encore_entry_script_tags('calendar') }}
+  <script>
+    
+  </script>
+{% endblock %}
+

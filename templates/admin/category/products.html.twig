@@ -1,0 +1,175 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}{{ category.name | title }}{% endblock %}
+
+{% block body %}
+<div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed main-content-narrow page-header-dark">
+    {% include "admin/partials/sidebar.html.twig" %}
+    {% include "admin/partials/header.html.twig" %}
+    {# {% include "admin/partials/options.html.twig" %}  #}
+
+      <!-- Main Container -->
+      <main id="main-container">
+
+        <!-- Page Content -->
+        <div class="content">
+          <!-- Quick Overview -->
+          <div class="row items-push">
+            <div class="col-6 col-lg-3">
+              <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="{{ path('admin_product_new') }}">
+                <div class="block-content py-5">
+                  <div class="fs-3 fw-semibold text-success mb-1">
+                    <i class="fa fa-plus"></i>
+                  </div>
+                  <p class="fw-semibold fs-sm text-success text-uppercase mb-0">
+                    Ajouter
+                  </p>
+                </div>
+              </a>
+            </div>
+            <div class="col-6 col-lg-3">
+              <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="javascript:void(0)">
+                <div class="block-content py-5">
+                  <div class="fs-3 fw-semibold text-dark mb-1">{{ products | length }}</div>
+                  <p class="fw-semibold fs-sm text-muted text-uppercase mb-0">
+                    prestation{% if products|length >1 %}s {% endif %}{{ category.name }}
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <!-- END Quick Overview -->
+          
+          <!-- Horizontal Navigation - Hover Centered -->
+          <div class="bg-white p-3 rounded push">
+            <!-- Toggle Navigation -->
+            <div class="d-lg-none">
+              <!-- Class Toggle, functionality initialized in Helpers.dmToggleClass() -->
+              <button type="button" class="btn w-100 btn-light d-flex justify-content-between align-items-center" data-toggle="class-toggle" data-target="#horizontal-navigation-hover-centered" data-class="d-none">
+                Autres catégories
+                <i class="fa fa-bars"></i>
+              </button>
+            </div>
+            <!-- END Toggle Navigation -->
+
+            <!-- Navigation -->
+            <div id="horizontal-navigation-hover-centered" class="d-none d-lg-block mt-2 mt-lg-0">
+              <ul class="nav-main nav-main-horizontal nav-main-hover nav-main-horizontal-center">
+              {% for category in list %}
+                <li class="nav-main-item">
+                  <a class="nav-main-link active" href="{{ path('admin_category_products', {id:category.id}) }}">
+                    <span class="nav-main-link-name">{{ category.name }}</span>
+                    <span class="nav-main-link-badge badge rounded-pill bg-primary">{{category.products | length}}</span>
+                  </a>
+                </li>
+              {% endfor %}
+              </ul>
+            </div>
+            <!-- END Navigation -->
+          </div>
+          <!-- END Horizontal Navigation - Hover Centered -->
+
+          <!-- All categorys -->
+          <div class="block block-rounded">
+            {# <div class="block-header block-header-default">
+              <h3 class="block-title">All categorys</h3>
+              <div class="block-options">
+                <div class="dropdown">
+                  <button type="button" class="btn btn-alt-secondary" id="dropdown-ecom-filters" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filters <i class="fa fa-angle-down ms-1"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-ecom-filters">
+                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                      New
+                      <span class="badge bg-success rounded-pill">260</span>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                      Out of Stock
+                      <span class="badge bg-danger rounded-pill">63</span>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                      All
+                      <span class="badge bg-black-50 rounded-pill">36k</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="block-content bg-body-dark">
+              <!-- Search Form -->
+              <form action="be_pages_ecom_categorys.html" method="POST" onsubmit="return false;">
+                <div class="mb-4">
+                  <input type="text" class="form-control form-control-alt" id="dm-ecom-categorys-search" name="dm-ecom-categorys-search" placeholder="Search all categorys..">
+                </div>
+              </form>
+              <!-- END Search Form -->
+            </div> #}
+            <div class="block-content">
+              <!-- All categorys Table -->
+              <div class="table-responsive">
+                <table class="table table-hover table-vcenter js-dataTable-buttons">
+                  <thead>
+                    <tr>
+                      <th class="d-none d-md-table-cell text-center" style="width: 100px;">ID</th>
+                      <th class="d-sm-table-cell text-center">Prestation</th>
+                      <th class="d-none d-md-table-cell text-center">Catégorie</th>
+                      <th class="d-none d-sm-table-cell text-center">Durée</th>
+                      <th class="text-center">Prix</th>
+                      <th class="d-none d-sm-table-cell text-center">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for product in products %}
+                      
+                  
+                    <tr>
+                      <td class="d-none d-md-table-cell text-center fs-sm">
+                        <a class="fw-semibold" href="{{ path('admin_product_edit', {id:product.id}) }}">
+                          <strong>{{ product.id }}</strong>
+                        </a>
+                      </td>
+                      <td class="text-center fs-sm">
+                        <a class="fw-semibold" href="{{ path('admin_product_edit', {id:product.id}) }}">{{ product.name }} {% if product.detail %}({{ product.detail | lower }}){% endif %}
+                        </a>
+                      </td>
+                      <td class="d-none d-md-table-cell text-center fs-sm">
+                        <a class="fw-semibold" href="{{ path('admin_category_products', {id:product.category.id}) }}">{{ product.category.name }}</a>
+                      </td>
+                      
+                      <td class="text-center d-none d-sm-table-cell fs-sm">
+                        <strong>{% if product.duration.h > 0 %}{{ product.duration.h }}h{% endif %}{% if product.duration.i > 0 %}{{ product.duration.i }}min{% endif %}</strong>
+                      </td>
+                      <td class="text-center fs-sm">
+                        <strong>{{ product.price | format_currency('EUR', )}}</strong>
+                      </td>
+                      <td class="d-none d-sm-table-cell text-center fs-sm">
+                        <a class="btn btn-sm btn-light" href="{{path('admin_product_edit', {id:product.id})}}">
+                          <i class="fa fa-fw fa-eye "></i>
+                        </a>
+                      </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center">Commencez par ajouter une prestation.</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- END All Products Table -->
+            </div>
+          </div>
+          <!-- END All Products -->
+        </div>
+        <!-- END Page Content -->
+
+      </main>
+      <!-- END Main Container -->
+    {% include "admin/partials/footer.html.twig" %}
+    </div>
+    <!-- END Page Container -->
+{% endblock %}
+{% block javascript %}
+  {{ parent() }}  
+  {{ encore_entry_script_tags('datatable') }}
+{% endblock %}

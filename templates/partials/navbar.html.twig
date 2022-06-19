@@ -1,0 +1,65 @@
+<nav id="main-nav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <!-- Logo starts -->
+            <a class="navbar-brand" href="{{ path('homepage') }}">
+              <img src="{{ asset('build/images/logo.svg') }}" alt="Logo Elite"/>
+            </a>
+            <!-- Logo Ends -->
+
+            <!-- Responsive Menu button starts -->
+            <div class="navbar-toggle"></div>
+            <!-- Responsive Menu button Ends -->
+          </div>
+
+          <div id="responsive-menu"></div>
+
+          <!-- Navigation starts -->
+          <div class="navbar-collapse collapse" id="navigation">
+            <div class="main-navigation" id="main-menu">
+            <ul class="nav navbar-nav text-center">
+              <li class="active">
+                <a href="{{ path('homepage') }}">Accueil</a>
+              </li>
+              <li>
+                <a href="#a-propos">A Propos</a>
+              </li>
+              {# <li>
+                <a href="#services">Services</a>
+              </li> #}
+              {# <li>
+                <a href="#team">Notre Équipe</a>
+              </li> #}
+              <li>
+                <a href="#actualites">Actualités</a>
+              </li>
+              <li>
+                <a href="#prix">Prestations</a>
+              </li>
+              <li>
+                <a href="#gallerie">Nos Coupes</a>
+              </li>
+              <li>
+                <a href="#salon">Nos Salons</a>
+              </li>
+              <li>
+                <a href="#contact">Contact</a>
+              </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right text-center">
+                {% if app.user %}
+                  <li>
+                    <a href="{{ path('app_login') }}">Mon compte</a>
+                  </li>
+                  <li><a href="{{ path('app_logout') }}"><i class="fa fa-sign-out fa-2x"></i></a></li>
+                  {% else %}                  
+                  <li>
+                    <a href="{{ path('app_login') }}">Mon Espace</a>
+                  </li>
+                {% endif %}
+              </ul>
+              </div>
+          </div>
+          <!-- Navigation Ends -->
+        </div>
+      </nav>

@@ -1,0 +1,32 @@
+{% extends "customer/base.html.twig" %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+
+{% block body %}
+<div id="page-container" class="page-header-dark main-content-boxed">
+
+    {% include "customer/partials/header.html.twig" %}
+    {# {% include "admin/partials/options.html.twig" %} #}
+
+
+      <!-- Main Container -->
+      <main id="main-container">
+
+        <!-- Search -->
+        <div class="content">
+          <div class="text-center py-3">
+            <h1 class="h3 fw-bold mb-2">Besoin d'une nouvelle coupe?</h1>
+            <h2 class="h5 fw-normal text-muted">Je prends RDV tout de suite</h2>
+            <a href="{{ path('customer_booking_salon') }}" class="btn btn-lg w-25 btn-primary text-light">ici</a>
+          </div>
+
+        </div>
+        <!-- END Search -->
+
+      </main>
+      <!-- END Main Container -->
+{% include "customer/partials/footer.html.twig" %}
+</div>
+{% endblock %}
+      

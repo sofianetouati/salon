@@ -1,0 +1,53 @@
+{% extends "customer/base.html.twig" %}
+
+{% block title %}Nouveau rendez-vous{% endblock %}
+
+
+{% block body %}
+<div id="page-container" class="page-header-dark main-content-boxed">
+    {% include "customer/partials/header.html.twig" %}
+    {# {% include "admin/partials/options.html.twig" %} #}
+
+
+      <!-- Main Container -->
+      <main id="main-container">
+        
+        <!-- Search -->
+        <div class="content">
+          <div class="text-center py-3">
+            <h1 class="h3 fw-bold mb-2">Où souhaitez-vous réserver?</h1>
+            <h2 class="h5 fw-normal text-muted">Notre équipes se fera un plaisir de vous accueillir!</h2>
+          </div>
+        </div>
+        <!-- END Search -->
+
+        <!-- Travel Packages -->
+        <div class="bg-body-extra-light">
+          <div class="content">
+            <div class="row justify-content-center">
+              {% for salon in salons %}  
+              <div class="col-md-6">
+                <a class="block bg-image" style="background-image: url('{{ asset('build/images/photos/photo12.jpg')}}');" href="{{ path('customer_booking_new', {id : salon.id}) }}" data-toggle="click-ripple">
+                  <div class="block-content ribbon ribbon-bookmark ribbon-primary ribbon-bottom bg-black-75">
+                    <div class="ribbon-box">
+                      Ouvert de <span class="fw-bold">{{ salon.openAt | format_datetime(pattern="HH'h'mm") }} à {{ salon.closeAt | format_datetime(pattern="HH'h'mm") }}</span>
+                    </div>
+                    <div class="pt-4 pb-6 px-md-3">
+                      <h3 class="h1 fw-bold text-white mb-1">{{ salon.name }}</h3>
+                      <h5 class="fw-normal text-body-color-light">{{ salon.address }}</h5>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <!-- END Travel Packages -->
+
+      </main>
+      <!-- END Main Container -->
+{% include "customer/partials/footer.html.twig" %}
+</div>
+{% endblock %}
+      

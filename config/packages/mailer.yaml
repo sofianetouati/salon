@@ -1,0 +1,6 @@
+framework:
+  mailer:
+    dsn: "%env(MAILER_DSN)%"
+    headers:
+      from: "Elites Barber Shops <contact@elitesbarbershops.fr>"
+      to: "contact@two-it.fr"

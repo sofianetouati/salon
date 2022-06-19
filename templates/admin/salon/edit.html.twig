@@ -1,0 +1,158 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modifier le salon{% endblock %}
+{% block body %}
+
+
+    <div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed main-content-narrow page-header-dark">
+    {% include "admin/partials/sidebar.html.twig" %}
+    {% include "admin/partials/header.html.twig" %}
+    {# {% include "admin/partials/options.html.twig" %}  #}
+
+      <!-- Main Container -->
+      <main id="main-container">
+
+        <!-- Hero -->
+        <div class="bg-image" style="background-image: url('{{ asset('build/images/photos/photo13@2x.jpg') }}');">
+          <div class="bg-black-50">
+            <div class="content content-full">
+              <div class="d-flex justify-content-between align-items-center">
+                <h1 class="fs-2 text-white my-2">
+                  <i class="fa fa-edit text-white-50 me-1"></i> Modifier la fiche
+                </h1>
+                <a class="btn btn-primary my-2 text-light" href="{{ path('admin_salon_all') }}">
+                    <i class="fa fa-fw fa-list"></i>
+                    <span class="d-none d-sm-inline ms-1">Liste</span>
+                </a>
+              </div>  
+            </div>
+          </div>
+        </div>
+        <!-- END Hero -->
+
+        <!-- Page Content -->
+        <div class="content">
+          <div class="block block-rounded block-bordered">
+            <div class="block-content">
+              {{ form_start(form, {attr: {'novalidate': 'novalidate'} }) }}
+                <!-- Vital Info -->
+                <h2 class="content-heading pt-0">Identification</h2>
+                <div class="row push">
+                  <div class="col-lg-4">
+                    <p class="text-muted">
+                      Entrez les informations de votre salon
+                    </p>
+                    {{form_errors(form.name)}}
+                    {{form_errors(form.address)}}
+                    {{form_errors(form.phone)}}
+                  </div>
+                  
+                  <div class="col-lg-8 col-xl-5">
+                    <div class="mb-4">
+                      {{form_widget(form.name)}}
+                    </div>
+                    <div class="mb-4">
+                      {{form_widget(form.address)}}
+                    </div>
+                    <div class="mb-4">
+                      {{form_widget(form.phone)}}
+                    </div>
+                    
+                    
+                  </div>
+                </div>
+
+                <div class="row push">
+                  <div class="col-lg-4">
+                    <p class="text-muted">
+                      Réservations en ligne possible ?
+                    </p>
+                    {{form_errors(form.isBookingOnline)}}
+                  </div>
+                  
+                  <div class="col-lg-8 col-xl-5">
+                    <div class="mb-4">
+                      <div class="form-check form-switch">
+                      {{form_widget(form.isBookingOnline)}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row push">
+                  <div class="col-lg-4">
+                    <p class="text-muted">
+                      Heure d'ouverture
+                    </p>
+                    {{form_errors(form.openAt)}}
+                  </div>
+                  
+                  <div class="col-lg-8 col-xl-5">
+                    <div class="mb-4 col-6">
+                      {{form_widget(form.openAt)}}
+                    </div>
+                  </div>
+                </div>
+                <div class="row push">
+                  <div class="col-lg-4">
+                    <p class="text-muted">
+                      Heure de fermeture
+                    </p>
+                    {{form_errors(form.closeAt)}}
+                  </div>
+                  
+                  <div class="col-lg-8 col-xl-5">
+                    <div class="mb-4 col-6">
+                      {{form_widget(form.closeAt)}}
+                    </div>
+                  </div>
+                </div>
+                <!-- END Vital Info -->
+
+                <!-- Optional Info -->
+                <h2 class="content-heading pt-0">Votre équipe</h2>
+                <div class="row push">
+                  <div class="col-lg-4">
+                    <p class="text-muted">
+                      Qui sera le manager du planning?
+                    </p>
+                    {{form_errors(form.manager)}}
+                  </div>
+                  <div class="col-lg-8 col-xl-5">
+                    <div class="mb-4">
+                    </div>
+                    <div class="row mb-4">
+                      <div class="col-md-6">
+                        {{form_widget(form.manager)}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- END Optional Info -->
+
+                <!-- Submit -->
+                <div class="row push">
+                  <div class="col-lg-8 col-xl-5 offset-lg-4">
+                    <div class="btn-group">
+                      <button type="submit" class="btn btn-primary rounded text-light me-1">
+                        <i class="fa fa-check-circle me-1"></i> Mettre à jour
+                      </button>
+                      {{ form_end(form) }}
+                      <a href="{{ path('admin_salon_show',{id:salon.id}) }}" class="btn btn-light rounded me-1">Annuler</a>
+                      {% if is_granted("ROLE_ADMIN") %}
+                        {{ include('admin/salon/_delete_form.html.twig') }}
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <!-- END Submit -->
+            </div>
+          </div>
+        </div>
+        <!-- END Page Content -->
+      </main>
+      <!-- END Main Container -->
+      {% include "admin/partials/footer.html.twig" %}
+    </div>
+    <!-- END Page Container -->
+{% endblock %}

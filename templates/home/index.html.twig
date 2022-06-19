@@ -1,0 +1,634 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+  <!-- Banner Section Starts -->  
+  <section class="banner" id="accueil">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="header-banner">
+            <img src="{{ asset('build/images/logo.svg') }}" alt="Logo"/>
+            <p>La qualité à petit prix</p>
+            <h3>À partir de {{ price }}€</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="banner-info-single">
+            <div class="icon-box">
+              <i class="fa fa-clock-o"></i>
+            </div>
+            <h3>Horaires</h3>
+            <p>Lundi – Samedi: 9:30 à 19:30</p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <a href="#salon">
+            <div class="banner-info-single">
+              <div class="icon-box">
+                <i class="fa fa-map-marker"></i>
+              </div>
+              <h3>Localisation</h3>
+              <p>Découvrez 
+
+                {% if salons|length>1 %}nos {% else %}notre {% endif %}{% if salons|length>1 %}salons {% else %}salon{% endif %} ici</p>
+
+            </div>
+          </a>
+        </div>
+        <div class="col-md-4">
+          <a href="{{ path('app_login') }}">
+            <div class="banner-info-single">
+              <div class="icon-box">
+                <i class="fa fa-calendar"></i>
+              </div>
+              <h3>Réservations</h3>
+              <p>en ligne</p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="banner-info-single rdv">
+            <h3 class="text-center">Avec ou sans RDV</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="banner-icon">
+      <i class="flaticon-hair-salon-situation"></i>
+    </div>
+  </section>
+  <!-- Banner Section Ends -->
+
+  <!-- About us section starts -->
+  <section class="aboutus" id="a-propos">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="main-title">
+            <h2>Qui Sommes-Nous?</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="about-image">
+            <div class="about-img-single">
+              <img src="{{ asset('build/images/coiffeur-hommes-clermont-ferrand-7.jpg') }}" alt=""/>
+            </div>
+
+            <div class="about-img-single">
+              <img src="{{ asset('build/images/coiffeur-hommes-clermont-ferrand-3.jpg') }}" alt=""/>
+            </div>
+
+            <div class="about-img-single">
+              <img src="{{ asset('build/images/coiffeur-hommes-clermont-ferrand.jpg') }}" alt=""/>
+            </div>
+          </div>
+
+          <div class="about-desc">
+            <p>ELITES Barber shops vous accueille dans deux adresses à Clermont Ferrand avec une ambiance chaleureuse et conviviale ! Notre salon est spécialisé en coupe de cheveux Homme- Rasage traditionnel - Taille de barbe. Une ambiance authentique et un travail de tradition avec des tarifs très réduits.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- About us section ends -->
+
+  <!-- Socials section starts -->
+  <section class="ourteam" id="actualites">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="main-title">
+            <h2>Actus réseaux</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12" style="text-align:center;">
+            <h3 class="text-center">Facebook</h3>
+            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Felitesbarbershops.fr%2F&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=false&hide_cover=false&show_facepile=false&appId=5545212208826886" height="500" style="border:none;overflow:hidden;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Socials section ends -->
+
+  <!-- Pricing Section starts -->
+  <div class="pricing" id="prix">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="main-title">
+            <h2>Prestations</h2>
+            <div class="pricing-logo ">
+              <img src="{{ asset('build/images/logo.svg') }}" alt=""/>
+            </div>
+          </div>
+        </div>
+      </div>
+{#       <div class="row no-pad">
+ #}        {# <div class="col-md-6">
+          <div class="store-image">
+            <img src="{{ asset('build/images/salon-coiffure.png') }}" alt=""/>
+          </div>
+        </div> #}
+
+        
+        
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="owl-carousel owl-theme testimonial-slider" id="pricing-slider">
+              {% for category in categories %} 
+                <div class="item">
+                  <h3 class="text-center text-light p-2">{{ category.name }}</h3>
+                  {% for product in category.products %}
+                    {% if product.published %}
+                      <div class="price-list">
+                        <div class="price-item">{{ product.name }}</div>
+                        <div class="price-line"></div>
+                        <div class="price-amount">{{product.price|format_currency('EUR')}}</div>
+                        {% if product.detail %}<p class="price-detail">({{ product.detail | lower }})</p>{% endif %}
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endfor %}
+            </div>  
+          </div>
+        </div>
+{#       </div>
+ #}    </div>
+    <div class="container">
+      <div class="row" style="padding-top:100px;">
+        <div class="col-md-6 col-sm-6">
+          <div class="service-single">
+            <div class="icon-box-outer">
+              <div class="icon-box">
+                <i class="flaticon-scissors"></i>
+              </div>
+            </div>
+
+            <h3>Coupe de cheveux</h3>
+            <p>Une coupe? Un style en particulier? Nos rois du ciseau sont là pour vous. Laissez-les vous sublimer.</p>
+            <h5>durée : 30 Min</h5>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-sm-6">
+          <div class="service-single">
+            <div class="icon-box-outer">
+              <div class="icon-box">
+                <i class="flaticon-razor"></i>
+              </div>
+            </div>
+
+            <h3>Barbe</h3>
+            <p>Une coupe ne serait rien avec une barbe hirsute. Nous redessinons avec précisons son contour pour mieux la mettre en valeur.</p>
+            <h5>durée : 30 Min</h5>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <!-- Pricing Section ends -->
+
+  <!-- Our Team section starts -->
+  {# <section class="ourteam" id="team">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="main-title">
+            <h2>Nos experts</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="team-box">
+            <figure>
+              <img src="{{ asset('build/images/team-1.png') }}" alt=""/>
+            </figure>
+
+            <div class="team-entry">
+              <p>Hair cut & Color Specialist</p>
+              <h3>Alan Black</h3>
+              <div class="team-social">
+                <a href="#">
+                  <i class="fa fa-facebook-official"></i>
+                </a>
+                <a href="#">
+                  <i class="fa fa-instagram"></i>
+                </a>
+                <a href="#">
+                  <i class="fa fa-pinterest-p"></i>
+                </a>
+                <a href="#">
+                  <i class="fa fa-linkedin"></i>
+                </a>
+                <a href="#">
+                  <i class="fa fa-twitter"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="team-box">
+            <figure>
+              <img src="{{ asset('build/images/team-2.png') }}" alt=""/>
+            </figure>
+
+            <div class="team-entry">
+              <p>Fasicial & Massage Expert</p>
+              <h3>Malik Green</h3>
+              <div class="team-social">
+                <a href="#">
+                  <i class="fa fa-facebook-official"></i>
+                </a>
+                <a href="#">
+                  <i class="fa fa-instagram"></i>
+                </a>
+                <a href="#">
+                  <i class="fa fa-pinterest-p"></i>
+                </a>
+                <a href="#">
+                  <i class="fa fa-linkedin"></i>
+                </a>
+                <a href="#">
+                  <i class="fa fa-twitter"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="team-box">
+            <figure>
+              <img src="{{ asset('build/images/team-3.png') }}" alt=""/>
+            </figure>
+
+            <div class="team-entry">
+              <p>Expert Barber</p>
+              <h3>John Smith</h3>
+              <div class="team-social">
+                <a href="#">
+                  <i class="fa fa-facebook-official"></i>
+                </a>
+                <a href="#">
+                  <i class="fa fa-instagram"></i>
+                </a>
+                <a href="#">
+                  <i class="fa fa-pinterest-p"></i>
+                </a>
+                <a href="#">
+                  <i class="fa fa-linkedin"></i>
+                </a>
+                <a href="#">
+                  <i class="fa fa-twitter"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section> #}
+  <!-- Our Team section ends -->
+
+  <!-- Photo Gallery section starts -->
+  <section class="gallery" id="gallerie">
+    <div class="container-fluid">
+      <div class="row no-pad">
+        <div class="col-md-12">
+          <div class="main-title">
+            <h2>Nos Coupes</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="row no-pad">
+        <div class="col-md-3 col-sm-4 col-xs-6">
+          <div class="gallery-box">
+            <figure>
+              <img src="{{ asset('build/images/gallery-1.jpg') }}" alt=""/>
+            </figure>
+
+            <div class="gallery-overlay">
+              <div class="gallery-info">
+                <p>Coupe 1</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-4 col-xs-6">
+          <div class="gallery-box">
+            <figure>
+              <img src="{{ asset('build/images/gallery-2.jpg') }}" alt=""/>
+            </figure>
+
+            <div class="gallery-overlay">
+              <div class="gallery-info">
+                <p>Coupe 2</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-4 col-xs-6">
+          <div class="gallery-box">
+            <figure>
+              <img src="{{ asset('build/images/materiel.jpg') }}" alt=""/>
+            </figure>
+
+            <div class="gallery-overlay">
+              <div class="gallery-info">
+                <p>Matériel Pro</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-4 col-xs-6">
+          <div class="gallery-box">
+            <figure>
+              <img src="{{ asset('build/images/gallery-4.jpg') }}" alt=""/>
+            </figure>
+
+            <div class="gallery-overlay">
+              <div class="gallery-info">
+                <p>Coupe 4</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-4 col-xs-6">
+          <div class="gallery-box">
+            <figure>
+              <img src="{{ asset('build/images/gallery-5.jpg') }}" alt=""/>
+            </figure>
+
+            <div class="gallery-overlay">
+              <div class="gallery-info">
+                <p>Coupe 5</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-4 col-xs-6">
+          <div class="gallery-box">
+            <figure>
+              <img src="{{ asset('build/images/gallery-6.jpg') }}" alt=""/>
+            </figure>
+
+            <div class="gallery-overlay">
+              <div class="gallery-info">
+                <p>Coupe 6</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-4 col-xs-6">
+          <div class="gallery-box">
+            <figure>
+              <img src="{{ asset('build/images/gallery-7.jpg') }}" alt=""/>
+            </figure>
+
+            <div class="gallery-overlay">
+              <div class="gallery-info">
+                <p>Coupe 7</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-4 col-xs-6">
+          <div class="gallery-box">
+            <figure>
+              <img src="{{ asset('build/images/gallery-8.jpg') }}" alt=""/>
+            </figure>
+
+            <div class="gallery-overlay">
+              <div class="gallery-info">
+                <p>Coupe 8</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Photo Gallery section ends -->
+
+  <!-- Testimonial section starts -->
+  {# <section class="testimonial" id="avis">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="main-title">
+						<h2>Customer Testimonial</h2>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div
+					class="col-md-12">
+					<!-- Header slider starts -->
+					<div class="owl-carousel owl-theme testimonial-slider" id="testimonial-slider">
+						<div class="item">
+							<div class="testimonial-single">
+								<div class="icon-box">
+									<i class="fa fa-quote-left"></i>
+								</div>
+
+								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took.</p>
+								<h3>- Eric Gartner</h3>
+							</div>
+						</div>
+
+						<div class="item">
+							<div class="testimonial-single">
+								<div class="icon-box">
+									<i class="fa fa-quote-left"></i>
+								</div>
+
+								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took.</p>
+								<h3>- Jonty Roads</h3>
+							</div>
+						</div>
+
+						<div class="item">
+							<div class="testimonial-single">
+								<div class="icon-box">
+									<i class="fa fa-quote-left"></i>
+								</div>
+
+								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took.</p>
+								<h3>- Esha Gupta</h3>
+							</div>
+						</div>
+
+						<div class="item">
+							<div class="testimonial-single">
+								<div class="icon-box">
+									<i class="fa fa-quote-left"></i>
+								</div>
+
+								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took.</p>
+								<h3>- Eric Gartner</h3>
+							</div>
+						</div>
+
+						<div class="item">
+							<div class="testimonial-single">
+								<div class="icon-box">
+									<i class="fa fa-quote-left"></i>
+								</div>
+
+								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took.</p>
+								<h3>- Jonty Roads</h3>
+							</div>
+						</div>
+
+						<div class="item">
+							<div class="testimonial-single">
+								<div class="icon-box">
+									<i class="fa fa-quote-left"></i>
+								</div>
+
+								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took.</p>
+								<h3>- Esha Gupta</h3>
+							</div>
+						</div>
+
+
+					</div>
+					<!-- Header slider ends -->
+				</div>
+			</div>
+		</div>
+	</section> #}
+  <!-- Testimonial section ends -->
+
+  <!-- Our Team section starts -->
+        <section class="ourteam" id="salon">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="main-title">
+                  <h2>Nos Salons</h2>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+            {% for salon in salons %}
+              
+            
+              <div class="col-md-6 ">
+              <div class="team-box " style="border-radius:6px;">
+                  {# <figure>
+                    <img src="{{ asset('build/images/salon-coiffure.png') }}" alt=""/>
+                  </figure> #}
+                  <div class="team-entry ribbon ribbon-top ribbon-bookmark ribbon-danger">
+                  {% if salon.isBookingOnline is same as false %}
+                    <div class="ribbon-box ">Sans RDV</div>
+                    {% else %}
+                    <div class="ribbon-box">RDV en ligne!</div>
+                  {% endif %}
+                    <p>Elites Baber Shops</p>
+                    <h3>{{ salon.name }}</h3>
+                    <address>
+                      {{ salon.address }}
+                    </address>
+                    <div class="col-6">
+                    <p>de {{ salon.openAt | format_datetime(pattern="H'h'mm", locale='fr')| capitalize }} à {{ salon.closeAt | format_datetime(pattern="H'h'mm", locale='fr')| capitalize }}</p>
+                    </div>
+                    <div class="col-6">
+                      {% if salon.isBookingOnline is same as false %}
+                        <p><a class='btn btn-contact' href="tel:{{ salon.phone }}">Nous contacter</a></p>
+                      {% else %}
+                        <p><a class='btn btn-contact' href="{{ path('app_login') }}">Réserver</a></p>
+                      {% endif %}
+                    </div>
+                    {# <div class="team-social">
+                      <a href="mailto:{{ salon.manager.email }}">
+                        <i class="fa fa-envelope"></i></a>
+                    </div> #}
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+
+          </div>
+        </section>
+  <!-- Our Team section ends -->
+
+  <!-- Contactus section starts -->
+  <section class="contactus" id="contact">
+    <div class="container-fluid">
+      <div class="row no-pad">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <div class="contact-form">
+            <h3 class="contact-form-title">Ecrivez-nous</h3>
+
+            {{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
+              {{ form_errors(form.name, {'attr':{'class':'text-danger'}}) }}
+              {{ form_errors(form.email, {'attr':{'class':'text-danger'}}) }}
+              {{ form_errors(form.message, {'attr':{'class':'text-danger'}}) }}
+              {{ form_errors(form.isGrpd, {'attr':{'class':'text-danger'}}) }}
+
+            <div class="form-group">
+              {{ form_widget(form.name) }}
+            </div>
+
+            <div class="form-group">
+              {{ form_widget(form.email) }}
+            </div>
+
+            <div class="form-group">
+              {{ form_widget(form.message) }}
+            </div>
+
+            <div class="form-group">
+              {{ form_label(form.isGrpd) }}
+              {{ form_widget(form.isGrpd) }}
+            </div>
+
+            <div class="form-group">
+              <input type="submit" class="btn-contact" value="Envoyer"/>
+            </div>
+
+            {{ form_end(form)}}
+          </div>
+          <div class="col-md-3"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Contactus section ends -->
+{% endblock %}

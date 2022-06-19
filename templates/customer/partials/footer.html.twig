@@ -1,0 +1,27 @@
+<!-- bottom button -->
+      {% if app.request.attributes.get('_route') is same as 'customer_booking_salon' or app.request.attributes.get('_route') is same as 'customer_booking_new' or app.request.attributes.get('_route') is same as 'customer_booking_edit'%}
+        
+      {% else %}
+      <ul class="nav nav-pills">
+        <li class="nav-item fixed-bottom">
+          <a class="btn btn-primary w-100 text-light" href="{{ path('customer_booking_salon') }}">
+            <i class="fa fa-plus fa-fw"></i> <span class="d-md-inline ms-1">Réserver</span>
+          </a>
+        </li>
+      </ul>
+      {% endif %}
+
+    <!-- bottom button -->
+<!-- Footer -->
+      <footer id="page-footer" class="bg-body-light {% if app.request.attributes.get('_route') is same as 'customer_booking_salon' or app.request.attributes.get('_route') is same as 'customer_booking_new' or app.request.attributes.get('_route') is same as 'customer_booking_edit' %}{% else %}mb-4{% endif %}">
+        <div class="content py-0">
+          <div class="row fs-sm">
+            
+            <div class="col-sm-6 order-sm-1 text-center text-sm-start">
+              <a class="fw-semibold" href="{{ path('homepage') }}" target="_blank">Elite Barber Shops</a> &copy; <span data-toggle="year-copy"></span>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!-- END Footer -->
+    

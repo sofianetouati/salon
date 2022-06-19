@@ -1,0 +1,108 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors-node_modules_core-js_internals_export_js-node_modules_jquery_dist_jquery_js.js",
+        "/build/vendors-node_modules_core-js_modules_es_object_define-property_js-node_modules_core-js_module-9c75fe.js",
+        "/build/vendors-node_modules_core-js_internals_array-method-is-strict_js-node_modules_core-js_interna-7c4060.js",
+        "/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-866a17.js",
+        "/build/app.js"
+      ],
+      "css": [
+        "/build/app.css"
+      ]
+    },
+    "admin": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors-node_modules_core-js_internals_export_js-node_modules_jquery_dist_jquery_js.js",
+        "/build/vendors-node_modules_core-js_modules_es_object_define-property_js-node_modules_core-js_module-9c75fe.js",
+        "/build/vendors-node_modules_core-js_internals_array-method-is-strict_js-node_modules_core-js_interna-7c4060.js",
+        "/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-866a17.js",
+        "/build/vendors-node_modules_core-js_modules_es_array_every_js-node_modules_core-js_modules_es_array_-240774.js",
+        "/build/vendors-node_modules_symfony_stimulus-bridge_dist_index_js-node_modules_core-js_modules_es_da-45b4f7.js",
+        "/build/admin.js"
+      ],
+      "css": [
+        "/build/vendors-node_modules_fullcalendar_common_main_css-node_modules_fullcalendar_daygrid_main_css--e76eee.css",
+        "/build/assets_styles_admin_css_themes_xmodern_css-assets_styles_admin_js_plugins_bootstrap-colorpick-3abcf3.css"
+      ]
+    },
+    "customer": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors-node_modules_core-js_internals_export_js-node_modules_jquery_dist_jquery_js.js",
+        "/build/vendors-node_modules_core-js_modules_es_object_define-property_js-node_modules_core-js_module-9c75fe.js",
+        "/build/vendors-node_modules_core-js_internals_array-method-is-strict_js-node_modules_core-js_interna-7c4060.js",
+        "/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-866a17.js",
+        "/build/vendors-node_modules_core-js_modules_es_array_every_js-node_modules_core-js_modules_es_array_-240774.js",
+        "/build/customer.js"
+      ],
+      "css": [
+        "/build/assets_styles_customer_css_themes_xmodern_css-assets_styles_customer_js_plugins_bootstrap-col-1a22fb.css"
+      ]
+    },
+    "calendar": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors-node_modules_core-js_internals_export_js-node_modules_jquery_dist_jquery_js.js",
+        "/build/vendors-node_modules_core-js_internals_array-method-is-strict_js-node_modules_core-js_interna-7c4060.js",
+        "/build/vendors-node_modules_sweetalert2_dist_sweetalert2_all_js.js",
+        "/build/vendors-node_modules_fullcalendar_core_locales-all_js-node_modules_fullcalendar_core_main_js--42e7dc.js",
+        "/build/calendar.js"
+      ],
+      "css": [
+        "/build/vendors-node_modules_fullcalendar_core_locales-all_js-node_modules_fullcalendar_core_main_js--42e7dc.css"
+      ]
+    },
+    "datatable": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors-node_modules_core-js_internals_export_js-node_modules_jquery_dist_jquery_js.js",
+        "/build/vendors-node_modules_core-js_modules_es_object_define-property_js-node_modules_datatables_net-0bd90c.js",
+        "/build/datatable.js"
+      ],
+      "css": [
+        "/build/vendors-node_modules_fullcalendar_common_main_css-node_modules_fullcalendar_daygrid_main_css--e76eee.css",
+        "/build/assets_styles_admin_css_themes_xmodern_css-assets_styles_admin_js_plugins_bootstrap-colorpick-3abcf3.css"
+      ]
+    },
+    "customer_datatable": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors-node_modules_core-js_internals_export_js-node_modules_jquery_dist_jquery_js.js",
+        "/build/vendors-node_modules_core-js_modules_es_object_define-property_js-node_modules_datatables_net-0bd90c.js",
+        "/build/customer_datatable.js"
+      ],
+      "css": [
+        "/build/assets_styles_customer_css_themes_xmodern_css-assets_styles_customer_js_plugins_bootstrap-col-1a22fb.css"
+      ]
+    },
+    "sweetalert": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors-node_modules_core-js_internals_export_js-node_modules_jquery_dist_jquery_js.js",
+        "/build/vendors-node_modules_core-js_modules_es_object_define-property_js-node_modules_core-js_module-9c75fe.js",
+        "/build/vendors-node_modules_sweetalert2_dist_sweetalert2_all_js.js",
+        "/build/sweetalert.js"
+      ],
+      "css": [
+        "/build/vendors-node_modules_fullcalendar_common_main_css-node_modules_fullcalendar_daygrid_main_css--e76eee.css",
+        "/build/assets_styles_admin_css_themes_xmodern_css-assets_styles_admin_js_plugins_bootstrap-colorpick-3abcf3.css"
+      ]
+    },
+    "customer_sweetalert": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors-node_modules_core-js_internals_export_js-node_modules_jquery_dist_jquery_js.js",
+        "/build/vendors-node_modules_core-js_modules_es_object_define-property_js-node_modules_core-js_module-9c75fe.js",
+        "/build/vendors-node_modules_sweetalert2_dist_sweetalert2_all_js.js",
+        "/build/customer_sweetalert.js"
+      ],
+      "css": [
+        "/build/assets_styles_customer_css_themes_xmodern_css-assets_styles_customer_js_plugins_bootstrap-col-1a22fb.css"
+      ]
+    }
+  }
+}

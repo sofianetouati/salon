@@ -1,0 +1,181 @@
+{% extends "customer/base.html.twig" %}
+
+{% block title %}Réservation {{ booking.id }} {% endblock %}
+
+
+{% block body %}
+<div id="page-container" class="page-header-dark main-content-boxed">
+    {% include "customer/partials/header.html.twig" %}
+    {# {% include "customer/partials/options.html.twig" %} #}
+
+    <!-- Main Container -->
+      <main id="main-container">
+
+      <!-- My Bookings -->
+    <div class="bg-body-dark">
+      <div class="content content-full">
+        <div class="text-center py-3">
+          <h1 class="h3 fw-bold mb-2">Votre réservation du {{ booking.beginAt | format_datetime(pattern="dd MMMM", locale='fr') | capitalize }}</h1>
+          <h3 class="h5 fw-normal text-muted">Détail de votre réservation</h3>
+        </div>
+        <!-- Page Content -->
+          {# <!-- User Info -->
+          <div class="block block-rounded">
+            <div class="block-content bg-body-light text-center">
+              <div class="row items-push">
+                <div class="col-6 text-uppercase">
+                  <div class="fw-semibold text-dark mb-1">Client</div>
+                  {% if booking.booker %}
+                  <a class="link-fx fs-3" href="{{ path('customer_customer_show', {id: booking.booker.id}) }}">{{ booking.bookerFullname}}</a>
+                  {% else %}
+                  <p class="link-fx fs-3">{{ booking.bookerFullname}}</p>
+                  {% endif %}
+                </div>
+                <div class="col-4">
+                  <div class="fw-semibold text-dark mb-1"><i class="fa fa-phone-alt me-1"></i></div>
+                   <a class="link-fx fs-3" href="tel:{{ booking.bookerPhone}}">{{ booking.bookerPhone }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END User Info --> #}
+
+          <!-- Addresses -->
+          <div class="block block-rounded">
+            <div class="block-header block-header-default">
+              <h3 class="block-title">{{ booking.Salon | title}}</h3>
+            </div>
+            <div class="block-content">
+              <div class="row">
+          <!--  Prestation -->
+          <div class="col-lg-4">
+            <div class="block block-rounded block-bordered">
+              <div class="block-header border-bottom">
+                <h3 class="block-title">Prestation</h3>
+              </div>
+              <div class="block-content block-center">
+                <div class="row pb-3">
+                {% if booking.product %}
+                  <p>{{ booking.productName | capitalize }}
+                  {% if booking.product.detail %}({{ booking.product.detail | lower }}){% endif %}
+                  </p>
+                  <small>{{ booking.product.price | format_currency('EUR') }}</small>
+                  {% else %}
+                  <p>{{ booking.productName | title }}
+                  {% if booking.productDetail %}({{ booking.productDetail | lower }}){% endif %}
+                  </p>
+                  <small>{{ booking.productPrice | format_currency('EUR') }}</small>
+                {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END Prestation -->
+          <!--  Coiffeur -->
+          <div class="col-lg-4">
+            <div class="block block-rounded block-bordered">
+              <div class="block-header border-bottom">
+                <h3 class="block-title">Coiffeur</h3>
+              </div>
+              <div class="block-content block-center">
+                <div class="row pb-3">
+                {% if booking.coiffeur %}
+                  <p>{{ booking.coiffeur.firstname | capitalize}} {{ booking.coiffeur.lastName | capitalize}}</p>
+                  {% else %}
+                  <p>Aucun coiffeur n'a été sélectionné</p>
+                {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END Coiffeur -->
+            
+            <!-- Date -->
+            <div class="col-lg-4">
+            <div class="block block-rounded block-bordered pb-3">
+              <div class="block-header border-bottom">
+                <h3 class="block-title">Date et heure du RDV</h3>
+              </div>
+              <div class="block-content block-center">
+
+                  {% if booking.isCancel is same as TRUE %}
+                    {% for role in booking.cancellerRoles %}  
+                      {% if role is same as "ROLE_ADMIN" or role is same as "ROLE_MANAGER" %}
+                      <p class="text-danger upper">Le salon à annulé ce rdv le {{ booking.cancelledAt | format_datetime(pattern="EEEE dd MMMM à H'h'mm", locale='fr') | capitalize }}.</p>
+                      {% elseif role is same as "ROLE_CLIENT" %}
+                      <p class="text-danger upper">Vous avez annulé ce rdv le {{ booking.cancelledAt | format_datetime(pattern="EEEE dd MMMM à H'h'mm", locale='fr') | capitalize }}.</p>
+
+                      {% endif %}
+                    {% endfor %}
+                  {% elseif booking.status is same as 'warning' %}
+                  <p>Effectué le {{ booking.beginAt | format_datetime(pattern="EEEE dd MMMM 'de' H'h'mm", locale='fr') | capitalize }}{{ booking.endAt | format_datetime(pattern="' à 'H'h'mm", locale='fr') }}</p>
+                  {% elseif booking.isCancel is same as FALSE and booking.status is same as 'success'%}  
+                  <p>Prévu {{ booking.beginAt | format_datetime(pattern="EEEE dd MMMM - H'h'mm", locale='fr') | capitalize }} à {{ booking.endAt | format_datetime(pattern="H'h'mm", locale='fr') }}</p>
+                    <a href="{{ path('customer_booking_cancel',{id:booking.id}) }}" class="btn btn-alt-danger">Annuler</a>
+                    <a href="{{ path('customer_booking_edit',{id:booking.id}) }}" class="btn btn-alt-warning">Modifier</a>
+                  {% endif %}
+              </div>
+            </div>
+          </div>
+            <!-- END coiffeur -->
+                
+
+          <!-- Events -->
+          {% if booking.booker %}
+          <div class="block block-rounded">
+            <div class="block-header block-header-default">
+              <h3 class="block-title">Vos rendez-vous passés</h3>
+            </div>
+            <div class="block-content">
+              <div class="table-responsive">
+                <table class="table table-hover table-vcenter js-dataTable-full-pagination">
+                  <thead>
+                    <tr>
+                      <th class="d-none d-sm-table-cell text-center" style="width: 100px;">N°</th>
+                      <th class="text-center">Date</th>
+                      <th class="text-center">Salon</th>
+                      <th class="text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    {% for lastBooking in lastBookings %}
+                      
+                      <tr class="table-{{ lastBooking.status }}">
+                        <td class="d-none d-sm-table-cell text-center fs-sm">
+                          {{lastBooking.id}}
+                        </td>
+                        <td class="text-center fs-sm">
+                          {{lastBooking.beginAt | format_datetime(pattern="EEEE dd MMMM à H'h'mm", locale='fr')| capitalize}}
+                        </td>
+                        <td class="text-center fs-sm">
+                          {{ lastBooking.salon | title}}
+                        </td>
+                        <td class="text-center fs-sm">
+                          <a class="btn btn-sm btn-light" href="{{ path('customer_booking_show', {id: lastBooking.id}) }}"><i class="fa fa-fw fa-eye me-1"></i></a>
+                        </td>
+                      </tr>
+                      {% else %}
+                      <tr>
+                        <td colspan="6" class="text-center">Aucun rendez-vous</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          <!-- END Events -->
+        </div>
+        <!-- END Page Content -->
+      </main>
+      <!-- END Main Container -->
+     {{ include('customer/partials/footer.html.twig') }}
+    </div>
+  </div>
+{% endblock %}
+{% block javascript %}
+  {{ parent() }}
+  {{ encore_entry_script_tags('customer_datatable') }}
+{% endblock %}

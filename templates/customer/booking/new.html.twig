@@ -1,0 +1,130 @@
+{% extends "customer/base.html.twig" %}
+
+{% block title %}Nouveau rendez-vous{% endblock %}
+
+
+{% block body %}
+<div id="page-container" class="page-header-dark main-content-boxed">
+    {% include "customer/partials/header.html.twig" %}
+    {# {% include "admin/partials/options.html.twig" %} #}
+
+
+      <!-- Main Container -->
+      <main id="main-container">
+
+
+        <!-- Search -->
+        <div class="content">
+          {{ form_start(form, {attr: {'novalidate': 'novalidate'} }) }}
+          <div class="text-center py-4">
+            <h1 class="h3 fw-bold mb-2">Quelle prestation voulez vous?</h1>
+            <h2 class="h5 fw-normal text-muted">Réservez votre place !</h2>
+          </div>
+            <div class="row justify-content-center" id="product">
+              <div class="col-md-3">
+                <h4>Faites vos choix</h4>
+                {{ form_widget(form.product)}}
+                {{form_errors(form.product)}}
+
+                {{ form_widget(form.coiffeur)}}
+                {{form_errors(form.coiffeur)}}
+              </div>
+              
+            <!-- Slot choice -->
+              <div class="col-md-6 js-slot-section">
+                  <div id="slot" class="is_static carousel carousel-dark slide" data-bs-wrap="false" data-bs-ride="false" data-bs-interval="false">
+                    <div class="carousel-inner" id="cal" style="height:auto;">
+                    
+                    </div>
+                  </div>
+              </div>
+            <div class="justify-content-center js-begin" hidden>
+              <div class="col-md-2">
+                {{form_widget(form.beginAt)}}
+              </div>
+            </div>
+                <!-- Submit -->
+            <div id="submit" class="col-md-3 justify-content-center px-0 pt-5">
+              {{form_errors(form.beginAt)}}
+              <div class="text-center">
+                <button id="btn_submit" type="button" class="js-swal-confirm btn btn-primary w-50 text-light">Valider</button>
+              </div>
+            </div>
+            </div>
+            
+          {{ form_end(form) }}
+          
+        </div>
+        <!-- END Search -->
+      </main>
+      <!-- END Main Container -->
+{% include "customer/partials/footer.html.twig" %}
+</div>
+{% endblock %}
+{% block javascript %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('customer_sweetalert') }}
+    <script type="text/javascript">
+
+      $(document).ready(function(){
+
+        $('.js-slot-section, #submit').hide();
+
+        //Affichage du choix du coiffeur après la sélection de la prestation
+        $(document).on('change','#booking_customer_product', function(){
+          $('.js-coiffeur').removeAttr('hidden').addClass('animated bounceInUp');
+        });
+
+        // Une foix le coiffeur choisi
+        $(document).on('change','#booking_customer_coiffeur', function(){
+
+          // On met les pendules à eéro
+        $('#booking_customer_beginAt').val();
+        //Recherche des dispo en Ajax
+        let id = this.value;
+        slotListDiv = $('#cal');
+        $.post({
+          url: "{{ path('booking_ajax_customer') }}",
+          data: {id},
+          dataType: 'html',
+          beforeSend: function () {
+            Dashmix.loader('show');
+          },
+          success: function(result, request) {
+            
+            $('.js-slot-section').show();
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $('.js-slot-section').offset().top
+            });
+
+            var parsedData =JSON.parse(result);
+            slotListDiv.html(parsedData.data);
+
+            //Initialisation du premier jour de dispo
+            $('#cal').find('.carousel-item:first').addClass('active');
+
+            // Affichage du bouton Submit après le choix du créneau
+            $('.slot').on('click',function(){
+              //$('.js-slot-section').show();
+              $('.slot').removeClass('btn-dark').addClass('btn-info');
+              $(this).removeClass('btn-info').addClass('btn-dark');
+              $('#booking_customer_beginAt').val(this.dataset.label); 
+              $('#submit').show();
+              $([document.documentElement, document.body]).animate({
+                  scrollTop: $('#submit').offset().top
+              });
+            });
+          },
+          complete: function () {
+            Dashmix.loader('hide')
+          },
+          error : function() {
+              //Si erreur, désactivation de la soumission
+              $('.js-slot-section, #submit').hide();
+            }
+          });
+
+        });
+      });
+    </script>
+{% endblock %}

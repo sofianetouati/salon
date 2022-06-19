@@ -1,0 +1,30 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Rest{% endblock %}
+
+{% block body %}
+    <h1>Rest</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ rest.id }}</td>
+            </tr>
+            <tr>
+                <th>StartAt</th>
+                <td>{{ rest.startAt ? rest.startAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EndAt</th>
+                <td>{{ rest.endAt ? rest.endAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('rest_index') }}">back to list</a>
+
+    <a href="{{ path('rest_edit', {'id': rest.id}) }}">edit</a>
+
+    {{ include('admin/coiffeur/rest/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,178 @@
+<!-- Sidebar -->
+      <!--
+        Sidebar Mini Mode - Display Helper classes
+
+        Adding 'smini-hide' class to an element will make it invisible (opacity: 0) when the sidebar is in mini mode
+        Adding 'smini-show' class to an element will make it visible (opacity: 1) when the sidebar is in mini mode
+          If you would like to disable the transition animation, make sure to also add the 'no-transition' class to your element
+
+        Adding 'smini-hidden' to an element will hide it when the sidebar is in mini mode
+        Adding 'smini-visible' to an element will show it (display: inline-block) only when the sidebar is in mini mode
+        Adding 'smini-visible-block' to an element will show it (display: block) only when the sidebar is in mini mode
+      -->
+      <nav id="sidebar" aria-label="Main Navigation">
+        <!-- Side Header -->
+        <div class="bg-header-dark">
+          <div class="content-header bg-white-5">
+            <!-- Logo -->
+            <a class="fw-semibold text-white tracking-wide" href="{{ path('admin_index')}}">
+              <span class="smini-visible">
+                E<span class="opacity-75">M</span>
+              </span>
+              <span class="smini-hidden">
+                Elites <span class="opacity-75">Manager</span>
+              </span>
+            </a>
+            <!-- END Logo -->
+
+            <!-- Options -->
+            <div>
+              <!-- Toggle Sidebar Style -->
+              <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+              <!-- Class Toggle, functionality initialized in Helpers.dmToggleClass() -->
+              {# <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="class-toggle" data-target="#sidebar-style-toggler" data-class="fa-toggle-off fa-toggle-on" onclick="Dashmix.layout('sidebar_style_toggle');Dashmix.layout('header_style_toggle');">
+                <i class="fa fa-toggle-off" id="sidebar-style-toggler"></i>
+              </button> #}
+              <!-- END Toggle Sidebar Style -->
+
+              <!-- Dark Mode -->
+              <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+              {# <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="class-toggle" data-target="#dark-mode-toggler" data-class="far fa" onclick="Dashmix.layout('dark_mode_toggle');">
+                <i class="far fa-moon" id="dark-mode-toggler"></i>
+              </button> #}
+              <!-- END Dark Mode -->
+
+              <!-- Close Sidebar, Visible only on mobile screens -->
+              <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+              <button type="button" class="btn btn-sm btn-alt-secondary d-lg-none" data-toggle="layout" data-action="sidebar_close">
+                <i class="fa fa-times-circle"></i>
+              </button>
+              <!-- END Close Sidebar -->
+            </div>
+            <!-- END Options -->
+          </div>
+        </div>
+        <!-- END Side Header -->
+
+        <!-- Sidebar Scrolling -->
+        <div class="js-sidebar-scroll">
+          <!-- Side Navigation -->
+          <div class="content-side">
+            <ul class="nav-main">
+              <li class="nav-main-item">
+                <a class="nav-main-link" href="{{ path('admin_index')}}">
+                  <i class="nav-main-link-icon fa fa-compass"></i>
+                  <span class="nav-main-link-name">Tabeau de bord</span>
+                </a>
+              </li>
+              <li class="nav-main-item">
+                <a class="nav-main-link" href="{{ path('admin_customer_all') }}">
+                  <i class="nav-main-link-icon fa fa-users"></i>
+                  <span class="nav-main-link-name">Clients</span>
+                </a>
+              </li>
+              {# Etablissements #}
+            {% if is_granted("ROLE_ADMIN") %}
+              <li class="nav-main-item">
+                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="">
+                  <i class="nav-main-link-icon fa fa-store"></i>
+                  <span class="nav-main-link-name">Etablissements</span>
+                </a>
+                <ul class="nav-main-submenu">
+                  <li class="nav-main-item">
+                    <a class="nav-main-link" href="{{ path('admin_salon_all') }}">
+                      <span class="nav-main-link-name">Salons</span>
+                    </a>
+                  </li>
+                  <li class="nav-main-item">
+                      <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                        <span class="nav-main-link-name">Gestion du personnel</span>
+                      </a>
+                      <ul class="nav-main-submenu">
+                      <li class="nav-main-item">
+                        <a class="nav-main-link" href="{{ path('admin_coiffeur_all') }}">
+                          <span class="nav-main-link-name">Coiffeur</span>
+                        </a>
+                      </li>
+                      <li class="nav-main-item">
+                        <a class="nav-main-link" href="{{ path('admin_manager_all') }}">
+                          <span class="nav-main-link-name">Managers</span>
+                        </a>
+                      </li>
+                      <li class="nav-main-item">
+                        <a class="nav-main-link" href="{{ path('rest_index') }}">
+                          <span class="nav-main-link-name">Abscences</span>
+                        </a>
+                      </li>
+                      </ul>
+                  </li>
+                </ul>
+              </li>
+              {% else %}
+              <li class="nav-main-item">
+                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="">
+                  <i class="nav-main-link-icon fa fa-store"></i>
+                  <span class="nav-main-link-name">Etablissements</span>
+                </a>
+                <ul class="nav-main-submenu">
+                  <li class="nav-main-item">
+                    <a class="nav-main-link" href="{{ path('admin_salon_all') }}">
+                      <span class="nav-main-link-name">Salons</span>
+                    </a>
+                  </li>
+                  <li class="nav-main-item">
+                      <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                        <span class="nav-main-link-name">Gestion du personnel</span>
+                      </a>
+                      <ul class="nav-main-submenu">
+                      <li class="nav-main-item">
+                        <a class="nav-main-link" href="{{ path('admin_coiffeur_all') }}">
+                          <span class="nav-main-link-name">Coiffeur</span>
+                        </a>
+                      </li>
+                      <li class="nav-main-item">
+                        <a class="nav-main-link" href="{{ path('rest_index') }}">
+                          <span class="nav-main-link-name">Abscences</span>
+                        </a>
+                      </li>
+                      </ul>
+                  </li>
+                </ul>
+              </li>
+            {% endif %}
+            {# Prestations #}
+            {% if is_granted("ROLE_MANAGER") %}
+              <li class="nav-main-item">
+                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="">
+                  <i class="nav-main-link-icon fa fa-tags"></i>
+                  <span class="nav-main-link-name">Prestations</span>
+                </a>
+                <ul class="nav-main-submenu">
+                  <li class="nav-main-item">
+                    <a class="nav-main-link" href="{{ path('admin_product_all') }}">
+                      <span class="nav-main-link-name">Coupes</span>
+                    </a>
+                  </li>
+                  <li class="nav-main-item">
+                    <a class="nav-main-link" href="{{ path('admin_category_all') }}">
+                      <span class="nav-main-link-name">Catégories</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            {% endif %}
+              {# Rendez-vous #}
+              <li class="nav-main-item">
+                <a class="nav-main-link" href="{{ path('admin_calendar') }}">
+                  <i class="nav-main-link-icon fa fa-calendar-alt"></i>
+                  <span class="nav-main-link-name">Rendez-vous</span>
+                </a>
+              </li>              
+          </div>
+          <!-- END Side Navigation -->
+        </div>
+        <!-- END Sidebar Scrolling -->
+      </nav>
+      <!-- END Sidebar -->
+
+      

@@ -1,0 +1,14 @@
+twig:
+  default_path: "%kernel.project_dir%/templates"
+  form_themes: ["bootstrap_5_layout.html.twig"]
+
+  paths:
+    "%kernel.project_dir%/public/build/images": images
+
+  globals:
+    userRepository: "@App\\Repository\\UserRepository"
+    coiffeurRepository: "@App\\Repository\\CoiffeurRepository"
+    salonRepository: "@App\\Repository\\SalonRepository"
+    bookingRepository: "@App\\Repository\\BookingRepository"
+    productRepository: "@App\\Repository\\ProductRepository"
+    categoryRepository: "@App\\Repository\\CategoryRepository"

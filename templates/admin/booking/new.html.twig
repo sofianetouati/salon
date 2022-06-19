@@ -1,0 +1,199 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Ajouter un Rendez-vous{% endblock %}
+{% block body %}
+
+
+    <div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed main-content-narrow page-header-dark">
+    {% include "admin/partials/sidebar.html.twig" %}
+    {% include "admin/partials/header.html.twig" %}
+    {# {% include "admin/partials/options.html.twig" %}  #}
+
+      <!-- Main Container -->
+      <main id="main-container">
+
+        <!-- Hero -->
+        <div class="bg-image" style="background-image: url('{{ asset('build/images/photos/photo13@2x.jpg') }}');">
+          <div class="bg-black-50">
+            <div class="content content-full">
+              <div class="d-flex justify-content-between align-items-center">
+                <h1 class="fs-2 text-white my-2">
+                  <i class="fa fa-plus text-white-50 me-1"></i> Ajouter un rendez-vous
+                </h1>
+                <div>
+                  <a class="btn btn-primary my-2 text-light" href="{{ path('admin_booking_all') }}">
+                      <i class="fa fa-fw fa-list"></i>
+                      <span class="d-none d-sm-inline ms-1">Liste</span>
+                  </a>
+                  <a class="btn btn-primary my-2 text-light" href="{{ path('admin_booking_salon') }}">
+                    <i class="fa fa-fw fa-undo"></i>
+                    <spane class="d-none d-sm-inline ms-1">Changer de Salon</spane>
+                  </a>
+                </div>
+              </div>  
+            </div>
+          </div>
+        </div>
+        <!-- END Hero -->
+
+        <!-- Page Content -->
+        <div class="content">
+          <div class="block block-rounded block-bordered">
+            <div class="block-content">
+              {{ form_start(form, {attr: {'novalidate': 'novalidate'} }) }}
+                <!-- Customer Info -->
+                <h2 class="content-heading pt-0">Informations principales</h2>
+                <div id="" class="row push">
+                  <div class="col-lg-4">
+                    <p class="text-muted">
+                      Sélectionnez le client
+                    </p>
+                  </div>
+                  <div class="col-lg-8 col-xl-5">
+                    <div class="mb-4">
+                      {{form_widget(form.booker)}}
+                      {{form_errors(form.booker)}}
+                    </div>
+                  </div>
+                </div>
+                <!-- END Customer Info -->
+                <!-- Product Info -->
+                <div class="row push js-product" hidden>
+                  <div class="col-lg-4">
+                    <p class="text-muted">
+                      Choisissez une prestation
+                    </p>
+                  </div>
+                  <div class="col-lg-8 col-xl-5">
+                    <div class="mb-4">
+                      {{form_widget(form.product)}}
+                      {{form_errors(form.product)}}
+                    </div>
+                  </div>
+                </div>
+                <!-- END Product Info -->
+                <!-- Coiffeur Info -->
+                <div class="row push js-coiffeur" hidden>
+                  <div class="col-lg-4">
+                    <p class="text-muted">
+                      Sélectionnez le coiffeur désiré
+                    </p>
+                  </div>
+                  <div class="col-lg-8 col-xl-5">
+                    <div class="mb-4">
+                      {{form_widget(form.coiffeur)}}
+                      {{form_errors(form.coiffeur)}}
+                    </div>
+                    <div class="mb-4 js-begin" hidden>
+                      {{form_widget(form.beginAt)}}
+                      {{form_errors(form.beginAt)}}
+                    </div>
+                  </div>
+                </div>
+                <!-- Slot choice -->
+                <div class="row push js-slot-section">
+                  <div class="col-lg-4">
+                    <p class="text-muted">
+                      Choisissez votre créneau
+                    </p>
+                  </div>
+                  <div id="slot" class="push is_static carousel carousel-dark slide col-lg-8 col-xl-5" data-bs-wrap="false" data-bs-ride="false" data-bs-interval="false">
+                    <div class="carousel-inner" id="cal" style="height:auto;">
+                    </div>
+                  </div>
+                  <div class="col text-center" id="submit">
+                    <div class="mb-4">
+                      <button id="btn_submit" type="button" class="js-swal-confirm btn btn-primary text-light">Valider</button>
+                      <a href="{{ path('admin_calendar') }}" class="btn btn-light rounded m-1">Annuler</a>
+                    </div>
+                    {{ form_end(form) }}
+                  </div>
+                </div>
+                <!-- Submit -->
+                        
+                <!-- END Submit -->
+            </div>
+          </div>
+        </div>
+        <!-- END Page Content -->
+      </main>
+      <!-- END Main Container -->
+      {% include "admin/partials/footer.html.twig" %}
+    </div>
+    <!-- END Page Container -->
+    
+{% endblock %}
+{% block javascript %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('sweetalert') }}
+    <script type="text/javascript">
+
+      $(document).ready(function(){
+
+        $('.js-slot-section, #submit').hide();
+
+        //Affichage du choix du coiffeur après la sélection de la prestation
+        $(document).on('change','#booking_booker', function(){
+          $('.js-product').removeAttr('hidden').addClass('animated bounceInUp');
+        });
+
+        //Affichage du choix du coiffeur après la sélection de la prestation
+        $(document).on('change','#booking_product', function(){
+          $('.js-coiffeur').removeAttr('hidden').addClass('animated bounceInUp');
+        });
+
+        // Une foix le coiffeur choisi
+        $(document).on('change','#booking_coiffeur', function(){
+
+          // On met les pendules à eéro
+        $('#booking_beginAt').val();
+
+
+
+        //Recherche des dispo en Ajax
+        let id = this.value;
+        slotListDiv = $('#cal');
+        $.post({
+          url: "{{ path('booking_ajax_admin') }}",
+          data: {id},
+          dataType: 'html',
+          beforeSend: function () {
+            Dashmix.layout('header_loader_on');
+          },
+          success: function(result, request) {
+            $('.js-slot-section').show();
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $(".js-slot-section").offset().top
+            });
+            var parsedData =JSON.parse(result);
+            slotListDiv.html(parsedData.data);
+
+            //Initialisation du premier jour de dispo
+            $('#cal').find('.carousel-item:first').addClass('active');
+
+            // Affichage du bouton Submit après le choix du créneau
+            $('.slot').on('click',function(){
+
+              $('.slot').removeClass('btn-dark').addClass('btn-info');
+              $(this).removeClass('btn-info').addClass('btn-dark');
+              $('#booking_beginAt').val(this.dataset.label); 
+              $('#submit').show();
+              $([document.documentElement, document.body]).animate({
+                scrollTop: $('footer').offset().top
+            });
+
+            });
+          },
+          complete: function () {
+            Dashmix.layout('header_loader_off');
+          },
+          error : function() {
+              //Si erreur, désactivation de la soumission
+              $('.js-slot-section, #submit').hide();
+            }
+          });
+
+        });
+      });
+    </script>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Ajouter un Administrateur{% endblock %}
+{% block body %}
+
+
+    <div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed main-content-narrow page-header-dark">
+    {% include "admin/partials/sidebar.html.twig" %}
+    {% include "admin/partials/header.html.twig" %}
+    {# {% include "admin/partials/options.html.twig" %}  #}
+
+      <!-- Main Container -->
+      <main id="main-container">
+
+        <!-- Hero -->
+        <div class="bg-image" style="background-image: url('{{ asset('build/images/photos/photo13@2x.jpg') }}');">
+          <div class="bg-black-50">
+            <div class="content content-full">
+              <div class="d-flex justify-content-between align-items-center">
+                <h1 class="fs-2 text-white my-2">
+                  <i class="fa fa-plus text-white-50 me-1"></i> Ajouter un administrateur
+                </h1>
+                <div>
+                  <a class="btn btn-primary my-2 text-light" href="{{ path('admin_all') }}">
+                      <i class="fa fa-fw fa-list"></i>
+                      <span class="d-none d-sm-inline ms-1">Liste</span>
+                  </a>
+                  <a class="btn btn-primary my-2 text-light" href="{{ app.request.headers.get('referer') }}">
+                    <i class="fa fa-fw fa-undo"></i>
+                    <spane class="d-none d-sm-inline ms-1">Retour</spane>
+                  </a>
+                </div>
+              </div>  
+            </div>
+          </div>
+        </div>
+        <!-- END Hero -->
+
+        <!-- Page Content -->
+        <div class="content">
+          <div class="block block-rounded block-bordered">
+            <div class="block-content">
+              {{ form_start(form, {attr: {'novalidate': 'novalidate'} }) }}
+                <!-- Vital Info -->
+                <h2 class="content-heading pt-0">Identification de l'administrateur</h2>
+                <div class="row push">
+                  <div class="col-lg-4">
+                    <p class="text-muted">
+                      Entrer les informations de l'administrateur
+                    </p>
+                    {{form_errors(form.firstname)}}
+                    {{form_errors(form.lastname)}}
+                    {{form_errors(form.email)}}
+                    {{form_errors(form.phone)}}
+                  </div>
+
+                  <div class="col-lg-8 col-xl-5">
+                    <div class="mb-4">
+                      {{form_widget(form.firstname)}}
+                    </div>
+                    <div class="mb-4">
+                      {{form_widget(form.lastname)}}
+                    </div>
+                    <div class="mb-4">
+                      {{form_widget(form.email)}}
+                    </div>
+                    <div class="mb-4">
+                      {{form_widget(form.phone)}}
+                    </div>
+                  </div>
+                </div>
+                <!-- END Vital Info -->
+
+                <!-- Submit -->
+                <div class="row push">
+                  <div class="col-lg-8 col-xl-5 offset-lg-4">
+                    <div class="mb-4">
+                      <button type="submit" class="btn btn-primary text-light">
+                        <i class="fa fa-check-circle me-1"></i> Enregistrer
+                      </button>
+                      <a href="{{ path('admin_all') }}" class="btn btn-dark m-1">
+                        <i class="fa fa-fw fa-arrow-left me-1"></i> Annuler
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <!-- END Submit -->
+              {{ form_end(form) }}
+            </div>
+          </div>
+        </div>
+        <!-- END Page Content -->
+      </main>
+      <!-- END Main Container -->
+      {% include "admin/partials/footer.html.twig" %}
+    </div>
+    <!-- END Page Container -->
+{% endblock %}

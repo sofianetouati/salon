@@ -1,0 +1,58 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Réinitialisation du mot de passe envoyé{% endblock %}
+
+{% block body %}
+    
+<div id="page-container">
+
+      <!-- Main Container -->
+      <main id="main-container">
+
+        <!-- Page Content -->
+        <div class="bg-image" style="background-image: url('{{ asset('build/images/photos/photo18@2x.jpg') }}');">
+          <div class="row g-0 justify-content-end bg-primary-op">
+            <!-- Main Section -->
+            <div class="hero-static col-md-5 d-flex flex-column bg-body-extra-light">
+              <!-- Header -->
+              <div class="flex-grow-0 p-5">
+                <a class="link-fx fw-bold fs-2" href="index.html">
+                  <span class="text-dark">ElitesBarber</span><span class="text-primary">Shops</span>
+                </a>
+                <p class="text-uppercase fw-bold fs-sm text-muted mb-0">
+                  Procédure de réinitialisation
+                </p>
+              </div>
+              <!-- END Header -->
+
+              <!-- Content -->
+              <div class="flex-grow-1 d-flex align-items-center p-5 bg-body-light">
+                <div class="w-100">
+                  
+                  <h1 class="fw-bold mb-2">
+                    Vérifiez vos emails
+                  </h1>
+                  <p class="fs-4 fw-medium text-muted mb-5">
+                    Si ce compte existe, un e-mail vient d'être envoyé contenant un lien de réinitialisation de votre mot de passe qui expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+                  </p>
+                  <p class="fs-4 fw-medium text-muted mb-5">
+                    Si vous n'avez rien reçu, vérifiez votre dossier spam ou <a href="{{ path('app_forgot_password_request') }}">essayez encore</a>.
+                  </p>
+                  
+                  <a class="btn btn-lg btn-primary text-light" href="{{ path('app_login') }}">
+                    <i class="fa fa-arrow-left opacity-50 me-1"></i> Se connecter
+                  </a>
+                </div>
+              </div>
+              <!-- END Content -->
+
+            </div>
+            <!-- END Main Section -->
+          </div>
+        </div>
+        <!-- END Page Content -->
+      </main>
+      <!-- END Main Container -->
+    </div>
+    <!-- END Page Container -->
+{% endblock %}

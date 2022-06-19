@@ -1,0 +1,66 @@
+{% extends 'customer/base.html.twig' %}
+{% block title %}Calendrier{% endblock %}
+
+{% block body %}
+
+<div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed main-content-narrow page-header-dark">
+    {% include "admin/partials/sidebar.html.twig" %}
+    {% include "admin/partials/header.html.twig" %}
+    {# {% include "admin/partials/options.html.twig" %} #}
+
+
+      <!-- Main Container -->
+      <main id="main-container">
+
+      <!-- Hero -->
+        <div class="bg-image" style="background-image: url('{{ asset('build/images/photos/photo13@2x.jpg') }}');">
+          <div class="bg-black-50">
+            <div class="content content-full">
+              <div class="d-flex justify-content-between align-items-center">
+                <h1 class="flex-grow-1 fs-2 text-white my-2">
+                  <i class="fa fa-calendar text-white-50 me-1"></i> Les Rendez-Vous
+                </h1>
+                <div>
+                  <a class="btn btn-primary my-2 text-light" href="{{ path('admin_booking_all') }}">
+                    <i class="fa fa-fw fa-list"></i>
+                    <span class="d-none d-sm-inline ms-1">Liste</span>
+                  </a>
+                  <a class="btn btn-primary my-2 text-light" href="{{ path('admin_booking_new') }}">
+                    <i class="fa fa-fw fa-plus"></i>
+                    <span class="d-none d-sm-inline ms-1">Ajouter</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END Hero -->
+
+        <!-- Page Content -->
+        <!-- Full Calendar (functionality is initialized in js/pages/be_comp_calendar.min.js which was auto compiled from _js/pages/be_comp_calendar.js ) -->
+        <!-- For more info and examples you can check out https://fullcalendar.io/ -->
+        <div class="row g-0 flex-xl-grow-1">
+          <div class="col-md">
+            <div class="content">
+              <div class="block block-rounded">
+                <div class="block-header block-header-default">
+                  <h3 class="block-title text-center">Calendrier <small>des réservations</small></h3>
+                  <div class="block-options">
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="fullscreen_toggle"><i class="si si-size-fullscreen"></i></button>
+                  </div>
+                </div>
+                <div class="block-content block-content-full">
+                  <!-- Calendar Container -->
+                  <div id="calendar-holder" data-events-url="{{ path('fc_load_events') }}" class="p-xl-4"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END Page Content -->
+      </main>
+      <!-- END Main Container -->
+{% include "admin/partials/footer.html.twig" %}
+</div>
+{% endblock %}
+

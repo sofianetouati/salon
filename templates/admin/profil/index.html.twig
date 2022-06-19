@@ -1,0 +1,115 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Liste des administrateurs{% endblock %}
+
+{% block body %}
+<div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed main-content-narrow page-header-dark">
+    {% include "admin/partials/sidebar.html.twig" %}
+    {% include "admin/partials/header.html.twig" %}
+    {# {% include "admin/partials/options.html.twig" %} #}
+
+      <!-- Main Container -->
+      <main id="main-container">
+
+        <!-- Hero -->
+        <div class="bg-image" style="background-image: url('{{ asset('build/images/photos/photo13@2x.jpg') }}');">
+          <div class="bg-black-50">
+            <div class="content content-full">
+              <div class="d-flex justify-content-between align-items-center">
+                <h1 class="flex-grow-1 fs-2 text-white my-2">
+                  <i class="fas fa-user-tie text-white-50 me-1"></i> Les Administrateurs
+                </h1>
+                {% if is_granted("ROLE_ADMIN") %}
+                  
+                <a class="btn btn-primary my-2 text-light" href="{{ path('admin_new') }}">
+                  <i class="fa fa-fw fa-plus"></i>
+                  <span class="d-none d-sm-inline ms-1">Ajouter</span>
+                </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END Hero -->
+
+        <!-- Page Content -->
+        <div class="content">
+
+
+        
+          
+
+          <div class="row">
+            <div class="col-md">
+              <!-- admins -->
+              <div class="block block-rounded">
+                {# <div class="block-header block-header-default">
+                  <h3 class="block-title">Liste des admins</h3>
+                   <div class="block-options">
+                    <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
+                      <i class="si si-refresh"></i>
+                    </button>
+                  </div>
+                </div> #}
+                <div class="block-content">
+                    <div class="table-responsive">
+                        <table class="table fs-sm js-dataTable-buttons">
+                            <thead>
+                                <tr>
+                                  <th class="d-none d-sm-table-cell text-center" style="width: 100px;">#</th>
+                                  <th class="text-center"><i class="far fa-user"></i></th>
+                                  <th class="text-center d-none d-sm-table-cell"><i class="far fa-envelope"></th>
+                                  <th class="text-center"><i class="fas fa-phone-alt"></i></th>
+                                  <th class="text-center">Statut</th>
+                                  <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for admin in userRepository.findAdmins %}
+                                <tr>
+                                  <td class="d-none d-sm-table-cell fw-semibold text-center" style="width: 100px;">
+                                  #{{ admin.id }}
+                                  </td>
+                                  <td class="fw-semibold text-center">
+                                  {{ admin.firstname | capitalize}} {{ admin.lastname | upper}}
+                                  </td>
+                                  <td class="d-none d-sm-table-cell text-center">
+                                  {{ admin.email }}
+                                  </td>
+                                  <td class="fw-semibold text-center">
+                                  {{ admin.phone }}
+                                  </td>
+                                  <td class="fw-semibold text-center">
+                                  {% if admin.isVerified %}<span class="badge rounded-pills bg-success mb-3">Activé</span>
+                                  {% else %}<span class="badge rounded-pills bg-warning mb-3">En attente</span>
+                                  {% endif %}
+                                  </td>
+                                  <td class="fw-semibold text-center">
+                                    <a class="btn btn-sm btn-light" href="{{ path('admin_show', {id:admin.id}) }}"><i class="far fa-eye me-1"></i></a>
+                                  </td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                <td colspan="6" class="text-center">Aucun administrateur n'est encore inscrit</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+              </div>
+              <!-- END Latest Orders -->
+            </div>
+          </div>
+          <!-- END Top Products and Latest Orders -->
+        </div>
+        <!-- END Page Content -->
+      </main>      
+      <!-- END Main Container -->
+{% include "admin/partials/footer.html.twig" %}
+</div>
+{% endblock %}
+{% block javascript %}
+  {{ parent() }}  
+  {{ encore_entry_script_tags('datatable') }}
+{% endblock %}

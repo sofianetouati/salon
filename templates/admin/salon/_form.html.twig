@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.address) }}
+    {{ form_row(form.phone) }}
+    {{ form_row(form.manager) }}
+    <button class="btn btn-primary text-light">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

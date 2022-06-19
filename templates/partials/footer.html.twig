@@ -1,0 +1,62 @@
+<footer>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="footer-social">
+              <a target="_blank" href="https://www.facebook.com/elitebarbershop63">
+                <i class="fa fa-facebook-official fa-3x"></i>
+              </a>
+              <a target="_blank" href="https://www.instagram.com/elitebarbershop63">
+                <i class="fa fa-instagram fa-3x"></i>
+              </a>
+            </div>
+
+            <div class="site-info">
+              <p>Elites Barber Shops &copy
+                {{ "now"|date("Y") }}</p>
+              <p>Ce projet a été financé par le Gouvernement dans le cadre du plan de relance.</p>
+            </div>
+
+            <div class="footer-menu">
+              <ul>
+                <li>
+                  <a href="{{ path('homepage') }}">Accueil</a>
+                </li>
+                <li>
+                  <a href="#salon">Le Salon</a>
+                </li>
+                {# <li>
+                  <a href="#services">Services</a>
+                </li> #}
+                {# <li>
+                  <a href="#team">L'Équipe</a>
+                </li> #}
+                <li>
+                  <a href="#actualites">Actualités</a>
+                </li>
+                <li>
+                  <a href="#gallerie">Nos Coupes</a>
+                </li>
+                <li>
+                  <a href="#prix">Prestations</a>
+                </li>
+                <li>
+                  <a href="#">Contact</a>
+                </li>
+                <li>
+                  <a href="{{ path('mentions') }}">Mentions Légales</a>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="frelance">
+              <img src="{{ asset('build/images/frelance.png') }}" class="img-responsive center-block" alt="France Relance" srcset="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>

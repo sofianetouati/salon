@@ -1,0 +1,42 @@
+  
+{% for slot in slots %}
+{% if slot %}
+    
+  <div class="carousel-item">
+    <div class="col">
+      <div class="mb-4 fw-semibold text-center">
+          <p class="mb-0 fw-bold">{{ slot | first | format_date(pattern="dd MMMM", locale="fr") | title }}</p>
+          <p class="fs-sm text-muted">{{ slot | first | format_date(pattern="EEEE", locale="fr") | title }}</p>   
+      </div>
+      {% if slot|first | format_datetime(pattern="EEEE", locale="fr") is same as('dimanche') %}
+      <div class="text-center">
+        <div class="block-content">
+          <img class="w-50 img-fluid push" src="{{ asset('build/images/various/closed.svg') }}" alt="Salon fermé le dimanche">
+          <h3>Le salon est fermé le dimanche</h3>
+        </div>
+      </div>
+      {% else %}
+        <div class="text-center">
+          {% for s in slot %}
+          <input type="button" value="{{ s | format_datetime(pattern="H':'mm", locale="fr") }}" data-label="{{ s | format_datetime(pattern="YYYY-MM-dd HH':'mm", locale="fr") }}" class="slot justify-content-center btn btn-lg btn-hero btn-info py-1 my-2" data-toggle="click-ripple">
+          {% else %}
+          <div class="block-content">
+            <h3>{{ coiffeur | title}} n'est pas disponible ce jour</h3>
+            <img class="w-25 img-fluid" src="{{ asset('build/images/various/busy.svg')}}" alt="">
+          </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+{% endfor %}
+
+<button class="carousel-control-prev" type="button" data-bs-target="#slot" data-bs-slide="prev">
+  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+  <span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-control-next" type="button" data-bs-target="#slot" data-bs-slide="next">
+  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  <span class="visually-hidden">Next</span>
+</button>

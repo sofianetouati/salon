@@ -1,0 +1,183 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Les prestations{% endblock %}
+
+{% block body %}
+<div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed main-content-narrow page-header-dark">
+    {% include "admin/partials/sidebar.html.twig" %}
+    {% include "admin/partials/header.html.twig" %}
+    {# {% include "admin/partials/options.html.twig" %}  #}
+
+      <!-- Main Container -->
+      <main id="main-container">
+
+        <!-- Page Content -->
+        <div class="content">
+          <!-- Quick Overview -->
+          <div class="row items-push">
+          {% if is_granted("ROLE_ADMIN") %}
+            
+            <div class="col-6 col-lg-3">
+              <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="{{ path('admin_product_new') }}">
+                <div class="block-content py-5">
+                  <div class="fs-3 fw-semibold text-success mb-1">
+                    <i class="fa fa-plus"></i>
+                  </div>
+                  <p class="fw-semibold fs-sm text-success text-uppercase mb-0">
+                    Ajouter
+                  </p>
+                </div>
+              </a>
+            </div>
+          {% endif %}
+            <div class="col-6 col-lg-3">
+              <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="javascript:void(0)">
+                <div class="block-content py-5">
+                  <div class="fs-3 fw-semibold text-dark mb-1">{{ products | length }}</div>
+                  <p class="fw-semibold fs-sm text-muted text-uppercase mb-0">
+                    Prestation{% if products|length >1 %}s{% endif %}
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <!-- END Quick Overview -->
+
+          <!-- All Products -->
+          <div class="block block-rounded">
+            <div class="block-header block-header-default">
+              <h3 class="block-title text-center">Liste des prestations</h3>
+              {# <div class="block-options">
+                <div class="dropdown">
+                  <button type="button" class="btn btn-alt-secondary" id="dropdown-ecom-filters" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filters <i class="fa fa-angle-down ms-1"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-ecom-filters">
+                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                      New
+                      <span class="badge bg-success rounded-pill">260</span>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                      Out of Stock
+                      <span class="badge bg-danger rounded-pill">63</span>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                      All
+                      <span class="badge bg-black-50 rounded-pill">36k</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="block-content bg-body-dark">
+              <!-- Search Form -->
+              <form action="be_pages_ecom_products.html" method="POST" onsubmit="return false;">
+                <div class="mb-4">
+                  <input type="text" class="form-control form-control-alt" id="dm-ecom-products-search" name="dm-ecom-products-search" placeholder="Search all products..">
+                </div>
+              </form>
+              <!-- END Search Form -->#}
+            </div> 
+            <div class="block-content block-content-full">
+              <!-- All Products Table -->
+              <div class="table-responsive">
+                <table class="table table-hover table-vcenter {% if is_granted("ROLE_ADMIN") %}js-dataTable-buttons{% else %}js-dataTable-full-pagination{% endif %}">
+                  <thead>
+                    <tr>
+                      <th class="d-none d-md-table-cell text-center" style="width: 100px;">ID</th>
+                      <th class="d-sm-table-cell text-center">Prestation</th>
+                      <th class="text-center">Catégorie</th>
+                      <th class="d-none d-sm-table-cell text-center">Durée</th>
+                      <th class="d-none d-sm-table-cell text-center">Prix</th>
+                      {% if is_granted("ROLE_ADMIN") %}
+                      <th class="d-none d-sm-table-cell text-center">Actions</th>
+                      {% endif %}
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for product in products %}
+                      
+                  
+                    <tr {% if product.published is same as false %}class="table-active"{% endif %}>
+                      <td class="d-none d-md-table-cell text-center fs-sm">
+                        <a class="fw-semibold" href="{{ path('admin_product_edit', {id:product.id}) }}">
+                          <strong>{{ product.id }}</strong>
+                        </a>
+                      </td>
+                      <td class="text-center fs-sm">
+                        <a class="fw-semibold" href="{{ path('admin_product_edit', {id:product.id}) }}">{{ product.name }} {% if product.detail %}({{ product.detail | lower }}){% endif %}
+                        </a>
+                      </td>
+                      <td class="text-center fs-sm">
+                        <a class="fw-semibold" href="{{ path('admin_category_products', {id:product.category.id}) }}">{{ product.category.name }}</a>
+                      </td>
+                      
+                      <td class="text-center d-none d-sm-table-cell fs-sm">
+                        <strong>{% if product.duration.h > 0 %}{{ product.duration.h }}h{% endif %}{% if product.duration.i > 0 %}{{ product.duration.i }}min{% endif %}</strong>
+                      </td>
+                      <td class="d-none d-sm-table-cell text-center fs-sm">
+                        <strong>{{ product.price | format_currency('EUR', )}}</strong>
+                      </td>
+                      {% if is_granted("ROLE_ADMIN") %}
+                      <td class="d-none d-sm-table-cell text-center fs-sm">
+                        <a class="btn btn-sm btn-light" href="{{path('admin_product_edit', {id:product.id})}}">
+                          <i class="fa fa-fw fa-eye "></i>
+                        </a>
+                      </td>
+                      {% endif %}
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center">Commencez par ajouter une prestation.</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- END All Products Table -->
+
+              {# <!-- Pagination -->
+              <nav aria-label="Photos Search Navigation">
+                <ul class="pagination justify-content-end mt-2">
+                  <li class="page-item">
+                    <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
+                      Prev
+                    </a>
+                  </li>
+                  <li class="page-item active">
+                    <a class="page-link" href="javascript:void(0)">1</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript:void(0)">2</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript:void(0)">3</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript:void(0)">4</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript:void(0)" aria-label="Next">
+                      Next
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+              <!-- END Pagination --> #}
+            </div>
+          </div>
+
+          <!-- END All Products -->
+        </div>
+        <!-- END Page Content -->
+
+      </main>
+      <!-- END Main Container -->
+    {% include "admin/partials/footer.html.twig" %}
+    </div>
+    <!-- END Page Container -->
+{% endblock %}
+{% block javascript %}
+  {{ parent() }}  
+  {{ encore_entry_script_tags('datatable') }}
+{% endblock %}
